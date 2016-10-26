@@ -1,28 +1,18 @@
-# Dji
+# DJI
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dji`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
 
 ## Installation
 
-Add this line to your application's Gemfile:
+If you already have Ruby installed on your computer, you can install this. Otherwise, go install Ruby and come back to these instructions.
 
-```ruby
-gem 'dji'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Open a command line (Terminal on macOS):
 
     $ gem install dji
 
 ## Usage
 
-TODO: Write usage instructions here
+Coming soon.
 
 ## Development
 
