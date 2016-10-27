@@ -6,7 +6,7 @@ module DJI
       option :phone_tail, required: true, aliases: :p
 
       def track
-        DJI::OrderTracking.tracking_details(order_number, phone_tail)
+        DJI::OrderTracking.tracking_details(options[:order_number], options[:phone_tail])
       end
     end
   end

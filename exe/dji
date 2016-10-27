@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'dji'
+require 'dji/commands'
+
+ARGV << '--help' if ARGV.empty?
+
+command_aliases = {
+  'h' => 'help',
+  't' => 'track',
+}
+
+command = ARGV.shift
+command = command_aliases[command] || command
+
+DJI::Command.invoke command, ARGV

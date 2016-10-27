@@ -40,9 +40,7 @@ module DJI
 
         lookup(lookups)
 
-        puts subclasses
         namespaces = subclasses.index_by(&:namespace)
-        puts namespaces
         namespaces[(lookups & namespaces.keys).first]
       end
 
