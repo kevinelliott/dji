@@ -18,7 +18,16 @@ Open a command line (Terminal on macOS):
 
 Use your order number in place of ORDER_NUMBER and the last 4 digits of your phone number for PHONE_TAIL. A full example might look like this:
 
-    $ dji track -o 1234567890 -p 1234
+    $ dji track -o 123456789012 -p 1234
+
+    ORDER TRACKING AS OF 2016-10-27 01:12:27 -0700
+    ------------------------------------------------------
+    Order Number     : 123456789012
+    Total            : USD $1,398.00
+    Payment Status   : Pay Confirmed
+    Shipping Status  : Pending
+    Shipping Company : Tba
+    Tracking Number  : 
 
 ## Development
 
