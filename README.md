@@ -54,6 +54,88 @@ If you want this to repeat automatically at an interval, specify the option for 
     Shipping Company : Tba
     Tracking Number  : 
 
+### Search FedEx and track by reference
+
+If you think your shipper is FedEx but you don't have a tracking code yet, you might be able to find your shipment by
+searching Fedex by reference. This allows you to search and track by reference.
+
+    $ dji track -c COUNTRY_CODE -p POSTAL_CODE
+
+An example of searching in the USA (country code is us) with a postal code:
+
+    $ dji fedex -c us -p 94123
+
+    FedEx Packages for Country us, Postal Code 94123 as of 2016-10-27 03:44:37 -0700
+    -------------------------------------------------------------------------------------------------------
+
+    PACKAGE 1
+
+    Origin       : SHENZHEN, CN
+    Destination  : San Francisco, CA, US
+    Tendered     : 
+    Picked Up    : 
+    Shipped      : 2016-10-27 00:00:00 -0600
+    Est. Deliver : 2016-10-31 10:30:00 -0700
+    Dimensions   : 22x34x16 cms
+    Total Weight : 9.7 lbs (4.4 kgs)
+    Status       : Label created
+
+If you want to search by a different reference, you can optionally pass it in:
+
+    $ dji fedex -c us -p 94123 --reference DJIGOODS
+
+    FedEx Packages for Country us, Postal Code 94123 as of 2016-10-27 03:50:57 -0700
+    -------------------------------------------------------------------------------------------------------
+
+    PACKAGE 1
+
+    Origin       : SHENZHEN, CN
+    Destination  : San Francisco, CA, US
+    Tendered     : 
+    Picked Up    : 
+    Shipped      : 2016-10-27 00:00:00 -0600
+    Est. Deliver : 2016-10-31 10:30:00 -0700
+    Dimensions   : 22x34x16 cms
+    Total Weight : 9.7 lbs (4.4 kgs)
+    Status       : Label created
+
+You may also have it repeat the search on a regular interval (in seconds):
+
+    $ dji fedex -c us -p 94123 -r 120
+
+    Requesting FedEx tracking by reference DJIGOODS every 120 seconds. Press CONTROL-C to stop...
+
+    FedEx Packages for Country us, Postal Code 94123 as of 2016-10-27 03:53:41 -0700
+    -------------------------------------------------------------------------------------------------------
+
+    PACKAGE 1
+
+    Origin       : SHENZHEN, CN
+    Destination  : San Francisco, CA, US
+    Tendered     : 
+    Picked Up    : 
+    Shipped      : 2016-10-27 00:00:00 -0600
+    Est. Deliver : 2016-10-31 10:30:00 -0700
+    Dimensions   : 22x34x16 cms
+    Total Weight : 9.7 lbs (4.4 kgs)
+    Status       : Label created
+
+
+    FedEx Packages for Country us, Postal Code 94123 as of 2016-10-27 03:55:42 -0700
+    -------------------------------------------------------------------------------------------------------
+
+    PACKAGE 1
+
+    Origin       : SHENZHEN, CN
+    Destination  : San Francisco, CA, US
+    Tendered     : 
+    Picked Up    : 
+    Shipped      : 2016-10-27 00:00:00 -0600
+    Est. Deliver : 2016-10-31 10:30:00 -0700
+    Dimensions   : 22x34x16 cms
+    Total Weight : 9.7 lbs (4.4 kgs)
+    Status       : Label created
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
