@@ -35,7 +35,9 @@ module DJI
 
         lookup(lookups)
 
+        puts subclasses
         namespaces = subclasses.index_by(&:namespace)
+        puts namespaces
         namespaces[(lookups & namespaces.keys).first]
       end
 
@@ -47,6 +49,10 @@ module DJI
 
       def lookup_paths
         @lookup_paths ||= %w( dji/commands commands )
+      end
+      
+      def file_lookup_paths
+        @file_lookup_paths ||= [ "{#{lookup_paths.join(',')}}", "**", "*_command.rb" ]
       end
 
     end
