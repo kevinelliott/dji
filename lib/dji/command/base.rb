@@ -14,7 +14,7 @@ module DJI
         def namespace
           ActiveSupport::Inflector.underscore(
             ActiveSupport::Inflector.demodulize(
-              super
+              name
             )
           ).chomp("_command").sub(/:command:/, ":")
         end
