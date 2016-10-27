@@ -29,6 +29,31 @@ Use your order number in place of ORDER_NUMBER and the last 4 digits of your pho
     Shipping Company : Tba
     Tracking Number  : 
 
+If you want this to repeat automatically at an interval, specify the option for repeat (either -r or --repeat) with the number of seconds. Do not use this nefariously, I suggest a reasonable interval such as 60 seconds, but more useful is probably around 300 seconds (5 minutes) to 600 seconds (10 minutes).
+
+    $ dji track -o 123456789012 -p 1234 -r 60
+
+    Requesting order tracking details every 60 seconds. Press CONTROL-C to stop...
+
+    ORDER TRACKING AS OF 2016-10-27 01:29:36 -0700
+    ------------------------------------------------------
+    Order Number     : 123456789012
+    Total            : USD $1,398.00
+    Payment Status   : Pay Confirmed
+    Shipping Status  : Pending
+    Shipping Company : Tba
+    Tracking Number  : 
+
+
+    ORDER TRACKING AS OF 2016-10-27 01:30:37 -0700
+    ------------------------------------------------------
+    Order Number     : 123456789012
+    Total            : USD $1,398.00
+    Payment Status   : Pay Confirmed
+    Shipping Status  : Pending
+    Shipping Company : Tba
+    Tracking Number  : 
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
