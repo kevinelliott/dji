@@ -157,6 +157,11 @@ module DJI
           puts
           puts "Origin       : #{package.origin}"
           puts "Destination  : #{package.destination}"
+          puts "Tendered     : #{package.tendered_date}"
+          puts "Picked Up    : #{package.pickup_date}"
+          puts "Shipped      : #{package.ship_date}"
+          puts "Est. Deliver : #{package.estimated_delivery_date}" if package.estimated_delivery_date.present?
+          puts "Delivered    : #{package.delivery_date}" if package.delivery_date.present?
           puts "Dimensions   : #{package.dimensions}"
           puts "Total Weight : #{package.total_weight[:pounds]} lbs (#{package.total_weight[:kilograms]} kgs)"
           puts "Status       : #{package.key_status}"

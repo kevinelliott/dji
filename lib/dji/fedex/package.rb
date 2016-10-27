@@ -1,3 +1,4 @@
+require 'time'
 
 module DJI
   module Fedex
@@ -71,15 +72,15 @@ module DJI
           package.sub_status = item['subStatus']
           package.main_status = item['mainStatus']
 
-          package.tendered_date = Date.parse(item['tenderedDt'])
-          package.pickup_date = Date.parse(item['pickupDt'])
-          package.ship_date = Date.parse(item['shipDt'])
-          package.estimated_delivery_date = Date.parse(item['estDeliveryDt'])
-          package.delivery_date = Date.parse(item['actDeliveryDt'])
+          package.tendered_date = Time.iso8601(item['tenderedDt']) if item['tenderedDt'].present?
+          package.pickup_date = Time.iso8601(item['pickupDt']) if item['pickupDt'].present?
+          package.ship_date = Time.iso8601(item['shipDt']) if item['shipDt'].present?
+          package.estimated_delivery_date = Time.iso8601(item['estDeliveryDt']) if item['estDeliveryDt'].present?
+          package.delivery_date = Time.iso8601(item['actDeliveryDt']) if item['actDeliveryDt'].present?
 
           package.dimensions = item['dimensions']
           package.total_weight = { pounds: item['totalLbsWgt'], kilograms: item['totalKgsWgt'] }
-          
+
           package
         end
 
