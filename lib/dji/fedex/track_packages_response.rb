@@ -1,11 +1,13 @@
+require 'dji/fedex/package'
+require 'dji/fedex/scan_event'
 
 module DJI
   module Fedex
     class TrackPackagesResponse
-      attr :packages
+      attr_accessor :packages
 
       def initialize
-        self.packages = []
+        @packages = []
       end
 
       class << self
@@ -19,7 +21,7 @@ module DJI
             tpr.packages << package if package.present?
           end
 
-          return tpr
+          tpr
         end
       end
 

@@ -2,20 +2,32 @@
 module DJI
   module Fedex
     class Package
-      attr :tracking_number, :pretty_tracking_number
-      attr :tracking_qualifier, :tracking_carrier_code, :tracking_carrier_description
-      attr :shipper_company_name, :shipper_name, :shipper_address, :shipper_address_line_2,
-           :shipper_city, :shipper_region_code, :shipper_country_code, :shipper_phone_number,
-           :shipped_by
-      attr :recipient_company_name, :recipient_name, :recipient_address, :recipient_address_line_2,
-           :recipient_city, :recipient_region_code, :recipient_country_code, :recipient_phone_number,
-           :shipped_to
-      attr :key_status, :key_status_code, :last_scan_status, :last_scan_date_time
-      attr :received_by, :sub_status, :main_status
-      attr :scan_events
+      attr_accessor :tracking_number, :pretty_tracking_number
+      attr_accessor :tracking_qualifier, :tracking_carrier_code, :tracking_carrier_description
+      attr_accessor :shipper_company_name, :shipper_name, :shipper_address, :shipper_address_line_2,
+                    :shipper_city, :shipper_region_code, :shipper_postal_code, :shipper_country_code, 
+                    :shipper_phone_number, :shipped_by
+      attr_accessor :recipient_company_name, :recipient_name, :recipient_address, :recipient_address_line_2,
+                    :recipient_city, :recipient_region_code, :recipient_postal_code, :recipient_country_code,
+                    :recipient_phone_number, :shipped_to
+      attr_accessor :key_status, :key_status_code, :last_scan_status, :last_scan_date_time
+      attr_accessor :received_by, :sub_status, :main_status
+      attr_accessor :tendered_date, :pickup_date, :ship_date, :estimated_delivery_date, :delivery_date
+      attr_accessor :dimensions, :total_weight
+      attr_accessor :scan_events
 
       def initialize
-        self.scan_events = []
+        @scan_events = []
+      end
+
+      def destination
+        [recipient_company_name, recipient_name, recipient_address, recipient_address_line_2, recipient_city,
+         recipient_region_code, recipient_country_code].reject(&:blank?).join(', ')
+      end
+
+      def origin
+        [shipper_company_name, shipper_name, shipper_address, shipper_address_line_2, shipper_city,
+         shipper_region_code, shipper_country_code].reject(&:blank?).join(', ')
       end
 
       class << self
@@ -26,7 +38,7 @@ module DJI
           package.pretty_tracking_number = item['displayTrackingNbr']
           package.tracking_qualifier = item['trackingQualifier']
           package.tracking_carrier_code = item['trackingCarrierCd']
-          package.tracking_carrrier_description = item['trackingCarrierDesc']
+          package.tracking_carrier_description = item['trackingCarrierDesc']
 
           package.shipper_company_name = item['shipperCmpnyName']
           package.shipper_name = item['shipperName']
@@ -59,6 +71,16 @@ module DJI
           package.sub_status = item['subStatus']
           package.main_status = item['mainStatus']
 
+          package.tendered_date = Date.parse(item['tenderedDt'])
+          package.pickup_date = Date.parse(item['pickupDt'])
+          package.ship_date = Date.parse(item['shipDt'])
+          package.estimated_delivery_date = Date.parse(item['estDeliveryDt'])
+          package.delivery_date = Date.parse(item['actDeliveryDt'])
+
+          package.dimensions = item['dimensions']
+          package.total_weight = { pounds: item['totalLbsWgt'], kilograms: item['totalKgsWgt'] }
+          
+          package
         end
 
       end

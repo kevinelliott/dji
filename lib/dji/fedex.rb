@@ -4,9 +4,11 @@ require 'uri'
 
 require 'nokogiri'         
 
-module DJI
-  class Fedex
+require 'dji/fedex/track_packages_response'
 
+module DJI
+  module Fedex
+  
     class << self
 
       # Get the tracking details for an order
@@ -107,7 +109,18 @@ module DJI
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
           # OK
-          puts res.body
+          # puts res.body
+          response = JSON.parse(res.body)['TrackPackagesResponse']
+          tpr = DJI::Fedex::TrackPackagesResponse.new_from_response(response)
+
+          data = { country_code: country_code, postal_code: postal_code }
+          if tpr.present?
+            data[:track_packages_response] = tpr
+            print_track_packages_response(data)
+          else
+            puts response
+            puts "Nothing parsed!"
+          end
           # page = Nokogiri::HTML(res.body)
           # content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
           # # puts content
@@ -129,6 +142,26 @@ module DJI
 
       def tracking_url_json
         'https://www.fedex.com/trackingCal/track'
+      end
+
+      def print_track_packages_response(data)
+        now = Time.now.to_s
+
+        puts
+        puts "FedEx Packages for Country #{data[:country_code]}, Postal Code #{data[:postal_code]} as of #{now}"
+        puts "-------------------------------------------------------------------------------------------------------"
+        puts
+
+        data[:track_packages_response].packages.each_with_index do |package, index|
+          puts "PACKAGE #{index+1}"
+          puts
+          puts "Origin       : #{package.origin}"
+          puts "Destination  : #{package.destination}"
+          puts "Dimensions   : #{package.dimensions}"
+          puts "Total Weight : #{package.total_weight[:pounds]} lbs (#{package.total_weight[:kilograms]} kgs)"
+          puts "Status       : #{package.key_status}"
+          puts
+        end
       end
 
       def print_tracking_details(data)
