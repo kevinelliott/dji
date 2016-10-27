@@ -1,0 +1,1 @@
+require 'dji/command'
