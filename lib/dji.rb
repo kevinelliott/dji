@@ -1,5 +1,5 @@
-require "dji/version"
+require 'dji/order_tracking'
+require 'dji/version'
 
 module Dji
-  # Your code goes here...
 end
