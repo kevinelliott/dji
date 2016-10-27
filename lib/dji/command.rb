@@ -7,8 +7,15 @@ require 'thor'
 
 module DJI
   module Command
+    extend ActiveSupport::Autoload
 
+    autoload :Behavior
+    autoload :Base
+
+    include Behavior
+    
     class << self
+
       def invoke(namespace, args = [], **config)
         namespace = namespace.to_s
         namespace = 'help' if namespace.blank? || Thor::HELP_MAPPINGS.include?(namespace)
@@ -21,6 +28,16 @@ module DJI
           exit
         end
       end
+
+      def find_by_namespace(name) # :nodoc:
+        lookups = [ name, "dji:#{name}" ]
+
+        lookup(lookups)
+
+        namespaces = subclasses.index_by(&:namespace)
+        namespaces[(lookups & namespaces.keys).first]
+      end
+
     end
 
   end
