@@ -10,6 +10,14 @@ Open a command line (Terminal on macOS):
 
     $ gem install dji
 
+When updates are released, you can get them with:
+
+    $ gem update dji
+
+If you do not manage your Ruby installations with RVM and are just using the system ruby, you might need to prefix the above commands with sudo, such as:
+
+    $ sudo gem install dji
+
 ## Usage
 
 ### Track an order
