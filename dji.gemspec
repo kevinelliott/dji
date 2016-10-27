@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'dji/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "dji"
-  spec.version       = Dji::VERSION
+  spec.name          = 'dji'
+  spec.version       = DJI::VERSION
   spec.authors       = ["Kevin Elliott"]
   spec.email         = ["kevin@welikeinc.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{CLI and Ruby tools for drone-maker DJI's store, account, and more.}
+  spec.description   = %q{CLI and Ruby tools for drone-maker DJI's store, account, and more.}
+  spec.homepage      = "http://github.com/kevinelliott/dji"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -29,6 +29,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = ['dji']
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'activesupport'
+  spec.add_dependency 'thor'
 
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
