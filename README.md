@@ -12,7 +12,13 @@ Open a command line (Terminal on macOS):
 
 ## Usage
 
-Coming soon.
+### Track an order
+
+    $ dji track -o ORDER_NUMBER -p PHONE_TAIL
+
+Use your order number in place of ORDER_NUMBER and the last 4 digits of your phone number for PHONE_TAIL. A full example might look like this:
+
+    $ dji track -o 1234567890 -p 1234
 
 ## Development
 
