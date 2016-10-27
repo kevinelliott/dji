@@ -18,6 +18,11 @@ If you do not manage your Ruby installations with RVM and are just using the sys
 
     $ sudo gem install dji
 
+If you are on Ubuntu Linux, you can do:
+
+    $ sudo apt install ruby ruby-dev
+    $ sudo gem install dji
+
 ## Usage
 
 ### Track an order
