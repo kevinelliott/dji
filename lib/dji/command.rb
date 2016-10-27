@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_support/dependencies/autoload'
+require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/hash/transform_values'
 
@@ -13,7 +14,7 @@ module DJI
     autoload :Base
 
     include Behavior
-    
+
     class << self
 
       def invoke(namespace, args = [], **config)
@@ -36,6 +37,16 @@ module DJI
 
         namespaces = subclasses.index_by(&:namespace)
         namespaces[(lookups & namespaces.keys).first]
+      end
+
+      protected
+
+      def command_type
+        @command_type ||= "command"
+      end
+
+      def lookup_paths
+        @lookup_paths ||= %w( dji/commands commands )
       end
 
     end
