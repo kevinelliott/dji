@@ -31,7 +31,7 @@ Use your order number in place of ORDER_NUMBER and the last 4 digits of your pho
 
 If you want this to repeat automatically at an interval, specify the option for repeat (either -r or --repeat) with the number of seconds. Do not use this nefariously, I suggest a reasonable interval such as 60 seconds, but more useful is probably around 300 seconds (5 minutes) to 600 seconds (10 minutes).
 
-    SpaceX-Falcon-9:dji kevin$ dji track -o 123456789012 -p 1234 -r 60
+    $ dji track -o 123456789012 -p 1234 -r 60
 
     Requesting order tracking details every 60 seconds. Press CONTROL-C to stop...
 
