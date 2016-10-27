@@ -4,7 +4,12 @@ require 'active_support/core_ext/enumerable'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/hash/transform_values'
 
+require "active_support/inflector"
+require "active_support/core_ext/module/introspection"
+require "active_support/core_ext/module/delegation"
+
 require 'thor'
+
 
 module DJI
   module Command

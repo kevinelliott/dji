@@ -3,7 +3,7 @@ module DJI
     class VersionCommand < Base
       desc 'version', 'get the version'
 
-      def perform
+      def version
         puts "dji #{DJI::VERSION}"
       end
     end
