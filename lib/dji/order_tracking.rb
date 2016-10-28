@@ -24,11 +24,11 @@ module DJI
       end
 
       # Get the tracking details for an order
-      def tracking_details(order_number, phone)
+      def tracking_details(options = {})
         auth_token = authenticity_token(tracking_url)
 
         url = URI.parse(tracking_url)
-        params = { 'number' => order_number, 'phone_tail' => phone, 'utf8' => '✓' }
+        params = { 'number' => options[:order_number], 'phone_tail' => options[:phone_tail], 'utf8' => '✓' }
         params[auth_token[:param]] = auth_token[:token]
 
         headers = {
@@ -56,6 +56,8 @@ module DJI
           data[:shipping_status] = content.at_xpath('div[4]').text.split(': ')[1]
           data[:shipping_company] = content.at_xpath('div[5]/span').text
           data[:tracking_number] = content.at_xpath('div[6]/a').text
+
+          data[:dji_username] = options[:dji_username] if options[:dji_username].present?
           
           print_tracking_details(data)
           data
@@ -78,12 +80,13 @@ module DJI
           puts
           puts "ORDER TRACKING AS OF #{now}"
           puts "------------------------------------------------------"
-          puts "Order Number     : #{data[:order_number]}"
-          puts "Total            : #{data[:total]}"
-          puts "Payment Status   : #{data[:payment_status]}"
-          puts "Shipping Status  : #{data[:shipping_status]}"
-          puts "Shipping Company : #{data[:shipping_company]}"
-          puts "Tracking Number  : #{data[:tracking_number]}"
+          puts "DJI Forum Username : #{data[:dji_username]}" if data[:dji_username]
+          puts "Order Number       : #{data[:order_number]}"
+          puts "Total              : #{data[:total]}"
+          puts "Payment Status     : #{data[:payment_status]}"
+          puts "Shipping Status    : #{data[:shipping_status]}"
+          puts "Shipping Company   : #{data[:shipping_company]}"
+          puts "Tracking Number    : #{data[:tracking_number]}"
           puts
       end
 
@@ -97,7 +100,8 @@ module DJI
             payment_total:    data[:total],
             shipping_status:  data[:shipping_status],
             shipping_company: data[:shipping_company],
-            tracking_number:  data[:tracking_number]
+            tracking_number:  data[:tracking_number],
+            dji_username:     data[:dji_username]
           }
         }
 
@@ -122,8 +126,8 @@ module DJI
       end
 
       def publish_url
-        #'http://localhost:3000/orders'
-        'http://dji-track.herokuapp.com/orders'
+        'http://localhost:3000/orders'
+        #'http://dji-track.herokuapp.com/orders'
       end
 
     end
