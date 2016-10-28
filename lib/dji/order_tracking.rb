@@ -48,15 +48,16 @@ module DJI
           # OK
           page = Nokogiri::HTML(res.body)
           content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
-          # puts content
-          data = {}
-          data[:order_number] = content.at_xpath('div[1]').text.split(' ')[-1]
-          data[:total]        = content.at_xpath('div[2]').text.split(' ')[1..-1].join(' ')
-          data[:payment_status] = content.at_xpath('div[3]').text.split(': ')[1]
-          data[:shipping_status] = content.at_xpath('div[4]').text.split(': ')[1]
+ 
+          data                    = {}
+          data[:order_number]     = content.at_xpath('div[1]').text.split(' ')[-1]
+          data[:total]            = content.at_xpath('div[2]').text.split(' ')[1..-1].join(' ')
+          data[:payment_status]   = content.at_xpath('div[3]').text.split(': ')[1]
+          data[:shipping_status]  = content.at_xpath('div[4]').text.split(': ')[1]
           data[:shipping_company] = content.at_xpath('div[5]/span').text
-          data[:tracking_number] = content.at_xpath('div[6]/a').text
+          data[:tracking_number]  = content.at_xpath('div[6]/a').text
 
+          data[:country]      = options[:country] if option[:country].present?
           data[:dji_username] = options[:dji_username] if options[:dji_username].present?
           
           print_tracking_details(data)
@@ -84,6 +85,7 @@ module DJI
           puts "Order Number       : #{data[:order_number]}"
           puts "Total              : #{data[:total]}"
           puts "Payment Status     : #{data[:payment_status]}"
+          puts "Country            : #{data[:shipping_country]}" if data[:country]
           puts "Shipping Status    : #{data[:shipping_status]}"
           puts "Shipping Company   : #{data[:shipping_company]}"
           puts "Tracking Number    : #{data[:tracking_number]}"
@@ -99,10 +101,11 @@ module DJI
             order_id:         data[:order_number],
             payment_status:   data[:payment_status],
             payment_total:    data[:total],
+            shipping_country: data[:shipping_country],
             shipping_status:  data[:shipping_status],
             shipping_company: data[:shipping_company],
             tracking_number:  data[:tracking_number],
-            dji_username:     data[:dji_username]
+            dji_username:     data[:dji_username],
           }
         }
 
