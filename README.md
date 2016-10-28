@@ -36,6 +36,7 @@ OPTIONS:
   -p, --phone PHONE_TAIL      # Last 4 digits of your phone number
   -r, --repeat INTERVAL       # Optional: Repat every INTERVAL seconds
   --publish                   # Optional: Publish your order details to http://dji-track.herokuapp.com/orders
+  -c, --country COUNTRY       # Optional: Your country (use 3 letter code, such as USA)
   -u, --dji_username USERNAME # Optional: Your DJI Forum username
 ```
 
@@ -83,7 +84,7 @@ If you want this to repeat automatically at an interval, specify the option for 
 
 #### Example: Track an order, every 5 minutes, and publish details for others to see
 
-    $ dji track -o 123456789012 -p 1234 -r 300 --publish -u dronenerd
+    $ dji track -o 123456789012 -p 1234 -r 300 --publish -u dronenerd -c USA
 
     ORDER TRACKING AS OF 2016-10-27 01:12:27 -0700
     ------------------------------------------------------
