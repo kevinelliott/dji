@@ -95,7 +95,8 @@ module DJI
         params = {
           format:           :json,
           order: {
-            order_id:     data[:order_number],
+            merchant:         'DJI',
+            order_id:         data[:order_number],
             payment_status:   data[:payment_status],
             payment_total:    data[:total],
             shipping_status:  data[:shipping_status],
