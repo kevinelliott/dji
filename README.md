@@ -100,10 +100,10 @@ If you want this to repeat automatically at an interval, specify the option for 
     Shipping Status    : Pending
     Shipping Company   : Tba
     Tracking Number    : 
-
+    
     You have successfully published your latest order status.
     See order statuses reported by others at http://dji-track.herokuapp.com/orders
-
+    
     ORDER TRACKING AS OF 2016-10-27 01:17:28 -0700
     ------------------------------------------------------
     DJI Forum Username : dronenerd
@@ -114,7 +114,7 @@ If you want this to repeat automatically at an interval, specify the option for 
     Shipping Status    : Pending
     Shipping Company   : Tba
     Tracking Number    : 
-
+    
     You have successfully published your latest order status.
     See order statuses reported by others at http://dji-track.herokuapp.com/orders
 
