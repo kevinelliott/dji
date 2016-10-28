@@ -5,6 +5,7 @@ module DJI
       option :order_number, required: true, aliases: :o
       option :phone_tail, required: true, aliases: :p
       option :repeat, aliases: :r
+      option :publish, required: false, default: false
 
       def track
         if options[:repeat].present?
@@ -13,11 +14,13 @@ module DJI
           puts "Requesting order tracking details every #{interval} seconds. Press CONTROL-C to stop..."
 
           while true
-            DJI::OrderTracking.tracking_details(options[:order_number], options[:phone_tail])
+            data = DJI::OrderTracking.tracking_details(options[:order_number], options[:phone_tail])
+            DJI::OrderTracking.publish(data) if data.present? && options[:publish].present?
             sleep(interval)
           end
         else
-          DJI::OrderTracking.tracking_details(options[:order_number], options[:phone_tail])
+          data = DJI::OrderTracking.tracking_details(options[:order_number], options[:phone_tail])
+          DJI::OrderTracking.publish(data) if data.present? && options[:publish].present?
         end
       end
     end

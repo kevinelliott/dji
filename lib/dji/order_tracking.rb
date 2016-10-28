@@ -1,5 +1,6 @@
 require 'net/http'
 require 'uri'
+require 'json'
 
 require 'nokogiri'         
 
@@ -42,7 +43,7 @@ module DJI
         request.set_form_data params
         res = http.request(request)
 
-        case res
+        data = case res
         when Net::HTTPSuccess, Net::HTTPRedirection
           # OK
           page = Nokogiri::HTML(res.body)
@@ -57,11 +58,13 @@ module DJI
           data[:tracking_number] = content.at_xpath('div[6]/a').text
           
           print_tracking_details(data)
+          data
         else
-          puts res.inspect
-          res.error!
+          puts "There was an error: #{res.error}"
+          nil
         end
-
+        
+        data
       end
 
       # The URL for order tracking
@@ -82,6 +85,44 @@ module DJI
           puts "Shipping Company : #{data[:shipping_company]}"
           puts "Tracking Number  : #{data[:tracking_number]}"
           puts
+      end
+
+      def publish(data)
+        url = URI.parse(publish_url)
+        params = {
+          format:           :json,
+          order: {
+            order_id:     data[:order_number],
+            payment_status:   data[:payment_status],
+            payment_total:    data[:total],
+            shipping_status:  data[:shipping_status],
+            shipping_company: data[:shipping_company],
+            tracking_number:  data[:tracking_number]
+          }
+        }
+
+        headers = {
+          'Accepts' => 'application/json',
+          'Content-Type' => 'application/json'
+        }
+
+        http = Net::HTTP.new url.host, url.port
+        request = Net::HTTP::Post.new url.path, headers
+        request.body = params.to_json
+        res = http.request(request)
+
+        case res
+        when Net::HTTPSuccess, Net::HTTPRedirection
+          puts "You have successfully published your latest order status."
+          puts "See order statuses reported by others at #{publish_url}"
+        else
+          puts "There was an error trying to publish your order status: #{res.error}"
+        end
+        
+      end
+
+      def publish_url
+        'http://localhost:3000/orders'
       end
 
     end
