@@ -8,16 +8,18 @@ module DJI
       option :publish, required: false, default: false
       
       option :country, required: false, aliases: :c
-      option :email_address, required: false, aliases: [:email, :e]
+      option :debug, required: false, default: false, aliases: :d
       option :dji_username, required: false, aliases: [:username, :u]
-      
+      option :email_address, required: false, aliases: [:email, :e]
+
       def track
         provided_options = {
           order_number: options[:order_number],
           phone_tail:   options[:phone_tail],
           country:      options[:country],
+          debug:        options[:debug],
+          dji_username: options[:dji_username],
           email:        options[:email_address],
-          dji_username: options[:dji_username]
         }
 
         if options[:repeat].present?

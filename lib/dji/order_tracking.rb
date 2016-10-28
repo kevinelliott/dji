@@ -10,12 +10,19 @@ module DJI
     class << self
 
       # Retrieve an authenticity_token
-      def authenticity_token(url)
+      def authenticity_token(url, options = {})
         uri      = URI(url)
         http     = Net::HTTP.new uri.host, uri.port
         request  = Net::HTTP::Get.new uri.path
         response = http.request request
         
+        if options[:debug].present?
+          puts "DEBUG: -------------------------------------------------------------------"
+          puts "DEBUG: Authenticity Token Body"
+          puts "DEBUG: #{response.body}"
+          puts "DEBUG: -------------------------------------------------------------------"
+        end
+
         page      = Nokogiri::HTML(response.body)
         token_dom = page.at_xpath('//meta[@name="csrf-token"]/@content')
         token     = token_dom.text if token_dom.present?
@@ -26,7 +33,7 @@ module DJI
 
       # Get the tracking details for an order
       def tracking_details(options = {})
-        auth_token = authenticity_token(tracking_url)
+        auth_token = authenticity_token(tracking_url, options)
 
         url = URI.parse(tracking_url)
         params = { 'number' => options[:order_number], 'phone_tail' => options[:phone_tail], 'utf8' => '✓' }
@@ -42,12 +49,19 @@ module DJI
         http = Net::HTTP.new url.host, url.port
         request = Net::HTTP::Post.new url.path, headers
         request.set_form_data params
-        res = http.request(request)
+        response = http.request(request)
 
-        data = case res
+        if options[:debug].present?
+          puts "DEBUG: -------------------------------------------------------------------"
+          puts "DEBUG: Tracking Page Body"
+          puts "DEBUG: #{response.body}"
+          puts "DEBUG: -------------------------------------------------------------------"
+        end
+
+        data = case response
         when Net::HTTPSuccess, Net::HTTPRedirection
           # OK
-          page = Nokogiri::HTML(res.body)
+          page = Nokogiri::HTML(response.body)
           content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
  
           data                    = {}
@@ -58,14 +72,15 @@ module DJI
           data[:shipping_company] = content.at_xpath('div[5]/span').text
           data[:tracking_number]  = content.at_xpath('div[6]/a').text
 
-          data[:shipping_country] = options[:country] if options[:country].present?
-          data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
           data[:email_address]    = options[:email_address] if options[:email_address].present?
+          data[:debug]            = options[:debug] if options[:debug].present?
+          data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
+          data[:shipping_country] = options[:country] if options[:country].present?
           
           print_tracking_details(data)
           data
         else
-          puts "There was an error: #{res.message}"
+          puts "There was an error: #{response.message}"
           nil
         end
         
@@ -119,14 +134,14 @@ module DJI
         http = Net::HTTP.new url.host, url.port
         request = Net::HTTP::Post.new url.path, headers
         request.body = params.to_json
-        res = http.request(request)
+        reponse = http.request(request)
 
-        case res
+        case response
         when Net::HTTPSuccess, Net::HTTPRedirection
           puts "You have successfully published your latest order status."
           puts "See order statuses reported by others at #{publish_url}"
         else
-          puts "There was an error trying to publish your order status: #{res.message}"
+          puts "There was an error trying to publish your order status: #{response.message}"
         end
         
       end
