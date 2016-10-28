@@ -25,9 +25,18 @@ If you are on Ubuntu Linux, you can do:
 
 ## Usage
 
-### Track an order
+### Order Tracking
 
-    $ dji track -o ORDER_NUMBER -p PHONE_TAIL
+    $ dji track [options]
+    
+    OPTIONS:
+    
+      -o, --order ORDER_NUMBER  # Your order number
+      -p, --phone PHONE_TAIL    # Last 4 digits of your phone number
+      -r, --repeat INTERVAL     # Repat every INTERVAL seconds (optional)
+      --publish                 # Publish your order details to http://dji-track.herokuapp.com/orders
+
+#### Example: Track an order
 
 Use your order number in place of ORDER_NUMBER and the last 4 digits of your phone number for PHONE_TAIL. A full example might look like this:
 
@@ -41,6 +50,8 @@ Use your order number in place of ORDER_NUMBER and the last 4 digits of your pho
     Shipping Status  : Pending
     Shipping Company : Tba
     Tracking Number  : 
+
+#### Example: Track an order, every 60 seconds
 
 If you want this to repeat automatically at an interval, specify the option for repeat (either -r or --repeat) with the number of seconds. Do not use this nefariously, I suggest a reasonable interval such as 60 seconds, but more useful is probably around 300 seconds (5 minutes) to 600 seconds (10 minutes).
 
@@ -66,6 +77,22 @@ If you want this to repeat automatically at an interval, specify the option for 
     Shipping Status  : Pending
     Shipping Company : Tba
     Tracking Number  : 
+
+#### Example: Track an order, and publish it for others to see
+
+    $ dji track -o 123456789012 -p 1234 --publish
+
+    ORDER TRACKING AS OF 2016-10-27 01:12:27 -0700
+    ------------------------------------------------------
+    Order Number     : 123456789012
+    Total            : USD $1,398.00
+    Payment Status   : Pay Confirmed
+    Shipping Status  : Pending
+    Shipping Company : Tba
+    Tracking Number  : 
+
+    You have successfully published your latest order status.
+    See order statuses reported by others at http://dji-track.herokuapp.com/orders
 
 ### Search FedEx and track by reference
 
