@@ -75,6 +75,7 @@ module DJI
           data[:debug]            = options[:debug] if options[:debug].present?
           data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
           data[:email_address]    = options[:email_address] if options[:email_address].present?
+          data[:phone_tail]       = options[:phone_tail]
           data[:order_time]       = options[:order_time] if options[:order_time].present?
           data[:shipping_country] = options[:country] if options[:country].present?
           
@@ -122,6 +123,7 @@ module DJI
             order_time:       data[:order_time],
             payment_status:   data[:payment_status],
             payment_total:    data[:total],
+            phone_tail:       data[:phone_tail],
             shipping_country: data[:shipping_country],
             shipping_status:  data[:shipping_status],
             shipping_company: data[:shipping_company],
