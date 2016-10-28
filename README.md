@@ -30,14 +30,18 @@ If you are on Ubuntu Linux, you can do:
 ```
 $ dji track [options]
 
-OPTIONS:
+REQUIRED:
 
   -o, --order ORDER_NUMBER    # Your order number
   -p, --phone PHONE_TAIL      # Last 4 digits of your phone number
+
+OPTIONAL:
+  
   -r, --repeat INTERVAL       # Optional: Repat every INTERVAL seconds
   --publish                   # Optional: Publish your order details to http://dji-track.herokuapp.com/orders
   -c, --country COUNTRY       # Optional: Your country (use 3 letter code, such as USA)
   -u, --dji_username USERNAME # Optional: Your DJI Forum username
+  -d, --debug                 # Optional: Some additional output for when emailing kevin@welikeinc.com for assistance
 ```
 
 #### Example: Track an order
