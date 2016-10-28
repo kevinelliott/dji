@@ -27,6 +27,7 @@ If you are on Ubuntu Linux, you can do:
 
 ### Order Tracking
 
+```
     $ dji track [options]
     
     OPTIONS:
@@ -35,6 +36,7 @@ If you are on Ubuntu Linux, you can do:
     -p, --phone PHONE_TAIL    # Last 4 digits of your phone number
     -r, --repeat INTERVAL     # Optional: Repat every INTERVAL seconds
     --publish                 # Optional: Publish your order details to http://dji-track.herokuapp.com/orders
+```
 
 #### Example: Track an order
 
