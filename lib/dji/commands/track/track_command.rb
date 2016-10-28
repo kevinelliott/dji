@@ -8,7 +8,7 @@ module DJI
       option :publish, required: false, default: false
       option :country, required: false, aliases: :c
       option :dji_username, required: false, aliases: [:username, :u]
-
+      
       def track
         provided_options = {
           order_number: options[:order_number],

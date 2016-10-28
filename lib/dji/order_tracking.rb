@@ -16,9 +16,10 @@ module DJI
         request  = Net::HTTP::Get.new uri.path
         response = http.request request
         
-        page     = Nokogiri::HTML(response.body)
-        token    = page.at_xpath('//meta[@name="csrf-token"]/@content').text    
-        cookie   = response['set-cookie']
+        page      = Nokogiri::HTML(response.body)
+        token_dom = page.at_xpath('//meta[@name="csrf-token"]/@content')
+        token     = token_dom.text if token_dom.present?
+        cookie    = response['set-cookie']
 
         { param: 'authenticity_token', token: token, cookie: cookie }
       end
