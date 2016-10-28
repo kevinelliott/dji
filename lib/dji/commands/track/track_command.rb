@@ -20,13 +20,13 @@ module DJI
         order_time = Time.parse(options[:order_time]) if options[:order_time].present?
 
         provided_options = {
-          order_number: options[:order_number],
-          order_time:   order_time,
-          phone_tail:   options[:phone_tail],
-          country:      options[:country],
-          debug:        options[:debug],
-          dji_username: options[:dji_username],
-          email:        options[:email_address],
+          order_number:  options[:order_number],
+          order_time:    order_time,
+          phone_tail:    options[:phone_tail],
+          country:       options[:country],
+          debug:         options[:debug],
+          dji_username:  options[:dji_username],
+          email_address: options[:email_address],
         }
 
         if options[:repeat].present?

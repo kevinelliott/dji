@@ -100,6 +100,7 @@ module DJI
           puts "ORDER TRACKING AS OF #{now}"
           puts "------------------------------------------------------"
           puts "DJI Forum Username : #{data[:dji_username]}" if data[:dji_username].present?
+          puts "Email Address      : #{data[:email_address]}" if data[:email_address].present?
           puts "Order Number       : #{data[:order_number]}"
           puts "Order Time         : #{data[:order_time]}" if data[:order_time].present?
           puts "Total              : #{data[:total]}"
@@ -126,6 +127,7 @@ module DJI
             shipping_company: data[:shipping_company],
             tracking_number:  data[:tracking_number],
             dji_username:     data[:dji_username],
+            email_address:    data[:email_address],
           }
         }
 
