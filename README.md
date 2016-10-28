@@ -87,8 +87,8 @@ If you want this to repeat automatically at an interval, specify the option for 
 
     ORDER TRACKING AS OF 2016-10-27 01:12:27 -0700
     ------------------------------------------------------
-    Order Number       : 123456789012
     DJI Forum Username : dronenerd
+    Order Number       : 123456789012
     Total              : USD $1,398.00
     Payment Status     : Pay Confirmed
     Shipping Status    : Pending
@@ -100,8 +100,8 @@ If you want this to repeat automatically at an interval, specify the option for 
 
     ORDER TRACKING AS OF 2016-10-27 01:17:28 -0700
     ------------------------------------------------------
-    Order Number       : 123456789012
     DJI Forum Username : dronenerd
+    Order Number       : 123456789012
     Total              : USD $1,398.00
     Payment Status     : Pay Confirmed
     Shipping Status    : Pending
