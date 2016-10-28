@@ -75,6 +75,7 @@ module DJI
           data[:email_address]    = options[:email_address] if options[:email_address].present?
           data[:debug]            = options[:debug] if options[:debug].present?
           data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
+          data[:order_time]       = options[:order_time] if options[:order_time].present?
           data[:shipping_country] = options[:country] if options[:country].present?
           
           print_tracking_details(data)
@@ -98,11 +99,12 @@ module DJI
           puts
           puts "ORDER TRACKING AS OF #{now}"
           puts "------------------------------------------------------"
-          puts "DJI Forum Username : #{data[:dji_username]}" if data[:dji_username]
+          puts "DJI Forum Username : #{data[:dji_username]}" if data[:dji_username].present?
           puts "Order Number       : #{data[:order_number]}"
+          puts "Order Time         : #{data[:order_time]}" if data[:order_time].present?
           puts "Total              : #{data[:total]}"
           puts "Payment Status     : #{data[:payment_status]}"
-          puts "Country            : #{data[:shipping_country]}" if data[:shipping_country]
+          puts "Country            : #{data[:shipping_country]}" if data[:shipping_country].present?
           puts "Shipping Status    : #{data[:shipping_status]}"
           puts "Shipping Company   : #{data[:shipping_company]}"
           puts "Tracking Number    : #{data[:tracking_number]}"
