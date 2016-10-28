@@ -60,7 +60,7 @@ module DJI
           print_tracking_details(data)
           data
         else
-          puts "There was an error: #{res.error}"
+          puts "There was an error: #{res.message}"
           nil
         end
         
@@ -116,13 +116,14 @@ module DJI
           puts "You have successfully published your latest order status."
           puts "See order statuses reported by others at #{publish_url}"
         else
-          puts "There was an error trying to publish your order status: #{res.error}"
+          puts "There was an error trying to publish your order status: #{res.message}"
         end
         
       end
 
       def publish_url
-        'http://localhost:3000/orders'
+        #'http://localhost:3000/orders'
+        'http://dji-track.herokuapp.com/orders'
       end
 
     end
