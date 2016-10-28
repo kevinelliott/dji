@@ -80,11 +80,23 @@ If you want this to repeat automatically at an interval, specify the option for 
     Shipping Company : Tba
     Tracking Number  : 
 
-#### Example: Track an order, and publish it for others to see
+#### Example: Track an order, every 5 minutes, and publish details for others to see
 
-    $ dji track -o 123456789012 -p 1234 --publish
+    $ dji track -o 123456789012 -p 1234 -r 300 --publish
 
     ORDER TRACKING AS OF 2016-10-27 01:12:27 -0700
+    ------------------------------------------------------
+    Order Number     : 123456789012
+    Total            : USD $1,398.00
+    Payment Status   : Pay Confirmed
+    Shipping Status  : Pending
+    Shipping Company : Tba
+    Tracking Number  : 
+
+    You have successfully published your latest order status.
+    See order statuses reported by others at http://dji-track.herokuapp.com/orders
+
+    ORDER TRACKING AS OF 2016-10-27 01:17:28 -0700
     ------------------------------------------------------
     Order Number     : 123456789012
     Total            : USD $1,398.00
