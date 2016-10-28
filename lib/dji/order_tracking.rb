@@ -134,7 +134,7 @@ module DJI
         http = Net::HTTP.new url.host, url.port
         request = Net::HTTP::Post.new url.path, headers
         request.body = params.to_json
-        reponse = http.request(request)
+        response = http.request(request)
 
         case response
         when Net::HTTPSuccess, Net::HTTPRedirection
