@@ -32,10 +32,11 @@ $ dji track [options]
 
 OPTIONS:
 
-  -o, --order ORDER_NUMBER  # Your order number
-  -p, --phone PHONE_TAIL    # Last 4 digits of your phone number
-  -r, --repeat INTERVAL     # Optional: Repat every INTERVAL seconds
-  --publish                 # Optional: Publish your order details to http://dji-track.herokuapp.com/orders
+  -o, --order ORDER_NUMBER    # Your order number
+  -p, --phone PHONE_TAIL      # Last 4 digits of your phone number
+  -r, --repeat INTERVAL       # Optional: Repat every INTERVAL seconds
+  --publish                   # Optional: Publish your order details to http://dji-track.herokuapp.com/orders
+  -u, --dji_username USERNAME # Optional: Your DJI Forum username
 ```
 
 #### Example: Track an order
@@ -82,28 +83,30 @@ If you want this to repeat automatically at an interval, specify the option for 
 
 #### Example: Track an order, every 5 minutes, and publish details for others to see
 
-    $ dji track -o 123456789012 -p 1234 -r 300 --publish
+    $ dji track -o 123456789012 -p 1234 -r 300 --publish -u dronenerd
 
     ORDER TRACKING AS OF 2016-10-27 01:12:27 -0700
     ------------------------------------------------------
-    Order Number     : 123456789012
-    Total            : USD $1,398.00
-    Payment Status   : Pay Confirmed
-    Shipping Status  : Pending
-    Shipping Company : Tba
-    Tracking Number  : 
+    Order Number       : 123456789012
+    DJI Forum Username : dronenerd
+    Total              : USD $1,398.00
+    Payment Status     : Pay Confirmed
+    Shipping Status    : Pending
+    Shipping Company   : Tba
+    Tracking Number    : 
 
     You have successfully published your latest order status.
     See order statuses reported by others at http://dji-track.herokuapp.com/orders
 
     ORDER TRACKING AS OF 2016-10-27 01:17:28 -0700
     ------------------------------------------------------
-    Order Number     : 123456789012
-    Total            : USD $1,398.00
-    Payment Status   : Pay Confirmed
-    Shipping Status  : Pending
-    Shipping Company : Tba
-    Tracking Number  : 
+    Order Number       : 123456789012
+    DJI Forum Username : dronenerd
+    Total              : USD $1,398.00
+    Payment Status     : Pay Confirmed
+    Shipping Status    : Pending
+    Shipping Company   : Tba
+    Tracking Number    : 
 
     You have successfully published your latest order status.
     See order statuses reported by others at http://dji-track.herokuapp.com/orders
