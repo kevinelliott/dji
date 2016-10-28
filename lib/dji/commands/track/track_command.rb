@@ -13,8 +13,8 @@ module DJI
       option :country, required: false, aliases: :c
       option :debug, required: false, default: false, aliases: :d
       option :dji_username, required: false, aliases: [:username, :u]
-      option :order_time, required: false, aliases: :t
       option :email_address, required: false, aliases: [:email, :e]
+      option :order_time, required: false, aliases: :t
 
       def track
         order_time = Time.parse(options[:order_time]) if options[:order_time].present?

@@ -72,9 +72,9 @@ module DJI
           data[:shipping_company] = content.at_xpath('div[5]/span').text
           data[:tracking_number]  = content.at_xpath('div[6]/a').text
 
-          data[:email_address]    = options[:email_address] if options[:email_address].present?
           data[:debug]            = options[:debug] if options[:debug].present?
           data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
+          data[:email_address]    = options[:email_address] if options[:email_address].present?
           data[:order_time]       = options[:order_time] if options[:order_time].present?
           data[:shipping_country] = options[:country] if options[:country].present?
           
