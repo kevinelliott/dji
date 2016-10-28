@@ -3,18 +3,19 @@ module DJI
     class TrackCommand < Base
       desc 'track ORDER_NUMBER PHONE_TAIL', 'track an order'
       option :order_number, required: true, aliases: :o
-      option :order_time, required: true, aliases: :t
       option :phone_tail, required: true, aliases: :p
-      option :repeat, aliases: :r
+
+      option :repeat, required: false, aliases: :r
       option :publish, required: false, default: false
-      
+           
       option :country, required: false, aliases: :c
       option :debug, required: false, default: false, aliases: :d
       option :dji_username, required: false, aliases: [:username, :u]
+      option :order_time, required: false, aliases: :t
       option :email_address, required: false, aliases: [:email, :e]
 
       def track
-        order_time = DateTime.parse(options[:order_time])
+        order_time = DateTime.parse(options[:order_time]) if options[:order_time].present?
 
         provided_options = {
           order_number: options[:order_number],
