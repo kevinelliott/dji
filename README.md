@@ -92,6 +92,7 @@ If you want this to repeat automatically at an interval, specify the option for 
     Order Number       : 123456789012
     Total              : USD $1,398.00
     Payment Status     : Pay Confirmed
+    Country            : USA
     Shipping Status    : Pending
     Shipping Company   : Tba
     Tracking Number    : 
@@ -105,6 +106,7 @@ If you want this to repeat automatically at an interval, specify the option for 
     Order Number       : 123456789012
     Total              : USD $1,398.00
     Payment Status     : Pay Confirmed
+    Country            : USA
     Shipping Status    : Pending
     Shipping Company   : Tba
     Tracking Number    : 
