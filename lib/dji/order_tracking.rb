@@ -85,7 +85,7 @@ module DJI
           puts "Order Number       : #{data[:order_number]}"
           puts "Total              : #{data[:total]}"
           puts "Payment Status     : #{data[:payment_status]}"
-          puts "Country            : #{data[:shipping_country]}" if data[:country]
+          puts "Country            : #{data[:country]}" if data[:country]
           puts "Shipping Status    : #{data[:shipping_status]}"
           puts "Shipping Company   : #{data[:shipping_company]}"
           puts "Tracking Number    : #{data[:tracking_number]}"
