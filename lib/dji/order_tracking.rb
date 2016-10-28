@@ -116,6 +116,7 @@ module DJI
           order: {
             merchant:         'DJI',
             order_id:         data[:order_number],
+            order_time:       data[:order_time],
             payment_status:   data[:payment_status],
             payment_total:    data[:total],
             shipping_country: data[:shipping_country],
