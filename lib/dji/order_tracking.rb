@@ -57,8 +57,8 @@ module DJI
           data[:shipping_company] = content.at_xpath('div[5]/span').text
           data[:tracking_number]  = content.at_xpath('div[6]/a').text
 
-          data[:country]      = options[:country] if options[:country].present?
-          data[:dji_username] = options[:dji_username] if options[:dji_username].present?
+          data[:shipping_country] = options[:country] if options[:country].present?
+          data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
           
           print_tracking_details(data)
           data
@@ -85,7 +85,7 @@ module DJI
           puts "Order Number       : #{data[:order_number]}"
           puts "Total              : #{data[:total]}"
           puts "Payment Status     : #{data[:payment_status]}"
-          puts "Country            : #{data[:country]}" if data[:country]
+          puts "Country            : #{data[:shipping_country]}" if data[:shipping_country]
           puts "Shipping Status    : #{data[:shipping_status]}"
           puts "Shipping Company   : #{data[:shipping_company]}"
           puts "Tracking Number    : #{data[:tracking_number]}"
