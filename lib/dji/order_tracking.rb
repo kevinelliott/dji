@@ -60,6 +60,7 @@ module DJI
 
           data[:shipping_country] = options[:country] if options[:country].present?
           data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
+          data[:email_address]    = options[:email_address] if options[:email_address].present?
           
           print_tracking_details(data)
           data

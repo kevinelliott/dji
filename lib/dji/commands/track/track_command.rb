@@ -6,7 +6,9 @@ module DJI
       option :phone_tail, required: true, aliases: :p
       option :repeat, aliases: :r
       option :publish, required: false, default: false
+      
       option :country, required: false, aliases: :c
+      option :email_address, required: false, aliases: [:email, :e]
       option :dji_username, required: false, aliases: [:username, :u]
       
       def track
@@ -14,6 +16,7 @@ module DJI
           order_number: options[:order_number],
           phone_tail:   options[:phone_tail],
           country:      options[:country],
+          email:        options[:email_address],
           dji_username: options[:dji_username]
         }
 
