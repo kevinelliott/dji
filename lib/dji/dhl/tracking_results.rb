@@ -1,3 +1,4 @@
+require 'dji/dhl/shipment'
 
 module DJI
   module DHL
