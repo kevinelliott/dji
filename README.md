@@ -1,5 +1,6 @@
 # DJI
 
+CLI and Ruby tools for drone-maker DJI's store, account, order status and more.
 
 
 ## Installation
