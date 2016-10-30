@@ -18,7 +18,7 @@ module DJI
           tr = TrackingResults.new
 
           results.each do |item|
-            shipment = Shipment.new_from_item(item)
+            shipment = DJI::DHL::Shipment.new_from_item(item)
             tr.shipments << shipment
           end
 
