@@ -1,3 +1,4 @@
+require 'date'
 require 'time'
 
 require 'dji/dhl/checkpoint'
@@ -37,6 +38,8 @@ module DJI
           shipment.delivery_status = item['delivery']['status']
           shipment.destination     = item['destination']['value']
           shipment.origin          = item['origin']['value']
+          shipment.estimated_delivery_date = Date.parse(item['edd']['date'])
+          shipment.estimated_delivery_product = item['edd']['product']
 
           item['checkpoints'].each do |item|
             checkpoint = Checkpoint.new_from_item(item)
