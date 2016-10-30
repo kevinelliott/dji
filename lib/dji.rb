@@ -11,6 +11,7 @@ require 'dji/version'
 module DJI
   extend ActiveSupport::Autoload
 
+  autoload :DHL
   autoload :Fedex
   autoload :OrderTracking
 end

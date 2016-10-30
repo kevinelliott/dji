@@ -32,8 +32,8 @@ module DJI
         when Net::HTTPSuccess, Net::HTTPRedirection
           puts res.body
 
-          # response = JSON.parse(res.body)['TrackPackagesResponse']
-          # tpr = DJI::Fedex::TrackPackagesResponse.new_from_response(response)
+          results = JSON.parse(res.body)['results']
+          tr = DJI::DHL::TrackingResults.new_from_results(results)
 
           # data = { country_code: country_code, postal_code: postal_code }
           # if tpr.present?
