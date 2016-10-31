@@ -64,22 +64,27 @@ module DJI
           page = Nokogiri::HTML(response.body)
           content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
  
-          data                    = {}
-          data[:order_number]     = content.at_xpath('div[1]').text.split(' ')[-1]
-          data[:total]            = content.at_xpath('div[2]').text.split(' ')[1..-1].join(' ')
-          data[:payment_status]   = content.at_xpath('div[3]').text.split(': ')[1]
-          data[:shipping_status]  = content.at_xpath('div[4]').text.split(': ')[1]
-          data[:shipping_company] = content.at_xpath('div[5]/span').text
-          data[:tracking_number]  = content.at_xpath('div[6]/a').text
+          if content.text.blank? || content.text.include?('Sorry, record not found.')
+            puts "Order #{options[:order_number]}/#{options[:phone_tail]} not found!"
+          else
+            data                    = {}
+            data[:order_number]     = content.at_xpath('div[1]').text.split(' ')[-1]
+            data[:total]            = content.at_xpath('div[2]').text.split(' ')[1..-1].join(' ')
+            data[:payment_status]   = content.at_xpath('div[3]').text.split(': ')[1]
+            data[:shipping_status]  = content.at_xpath('div[4]').text.split(': ')[1]
+            data[:shipping_company] = content.at_xpath('div[5]/span').text
+            data[:tracking_number]  = content.at_xpath('div[6]/a').text
 
-          data[:debug]            = options[:debug] if options[:debug].present?
-          data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
-          data[:email_address]    = options[:email_address] if options[:email_address].present?
-          data[:phone_tail]       = options[:phone_tail]
-          data[:order_time]       = options[:order_time] if options[:order_time].present?
-          data[:shipping_country] = options[:country] if options[:country].present?
-          
-          print_tracking_details(data)
+            data[:debug]            = options[:debug] if options[:debug].present?
+            data[:dji_username]     = options[:dji_username] if options[:dji_username].present?
+            data[:email_address]    = options[:email_address] if options[:email_address].present?
+            data[:phone_tail]       = options[:phone_tail] if options[:phone_tail].present?
+            data[:order_time]       = options[:order_time] if options[:order_time].present?
+            data[:shipping_country] = options[:country] if options[:country].present?
+            
+            print_tracking_details(data)
+          end
+
           data
         else
           puts "There was an error: #{response.message}"
