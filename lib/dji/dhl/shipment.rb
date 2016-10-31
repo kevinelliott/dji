@@ -35,8 +35,10 @@ module DJI
           puts item.inspect
           shipment                 = Shipment.new
           shipment.waybill         = item['id']
-          shipment.delivery_code   = item['delivery']['code']
-          shipment.delivery_status = item['delivery']['status']
+          if item['delivery'].present?
+            shipment.delivery_code   = item['delivery']['code']
+            shipment.delivery_status = item['delivery']['status']
+          end
           shipment.destination     = item['destination']['value']
           shipment.origin          = item['origin']['value']
           shipment.estimated_delivery_date = Date.parse(item['edd']['date'])
