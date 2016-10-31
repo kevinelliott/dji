@@ -82,7 +82,7 @@ module DJI
             data[:order_time]       = options[:order_time] if options[:order_time].present?
             data[:shipping_country] = options[:country] if options[:country].present?
             
-            print_tracking_details(data)
+            print_tracking_details(data) if options[:debug]
           end
 
           data

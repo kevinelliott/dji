@@ -30,7 +30,7 @@ module DJI
 
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
-          puts res.body
+          #puts res.body
 
           results = JSON.parse(res.body)['results']
           tr = DJI::DHL::TrackingResults.new_from_results(results)
