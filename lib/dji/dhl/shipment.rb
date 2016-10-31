@@ -32,6 +32,7 @@ module DJI
       class << self
 
         def new_from_item(item)
+          puts item.inspect
           shipment                 = Shipment.new
           shipment.waybill         = item['id']
           shipment.delivery_code   = item['delivery']['code']
