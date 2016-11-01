@@ -65,7 +65,7 @@ module DJI
           content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
  
           if content.text.blank? || content.text.include?('Sorry, record not found.')
-            puts "Order #{options[:order_number]}/#{options[:phone_tail]} not found!"
+            puts "Order #{options[:order_number]}/#{options[:phone_tail]} not found!" if options[:debug]
           else
             data                    = {}
             data[:order_number]     = content.at_xpath('div[1]').text.split(' ')[-1]
