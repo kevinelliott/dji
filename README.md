@@ -38,12 +38,12 @@ REQUIRED:
 
 OPTIONAL:
   
-  -r, --repeat INTERVAL       # Repat every INTERVAL seconds
+  -r, --repeat INTERVAL       # Repeat every INTERVAL seconds
   --publish                   # Publish your order details to http://dji-track.herokuapp.com/orders
   -c, --country COUNTRY       # Your country (use 3 letter code, such as USA)
   -t, --order_time TIMESTAMP  # The timestamp from your private order page at https://accounts.dji.com/user/orders surrounded by quotes (i.e. "2016-09-29 11:21:21 (UTC)")
   -u, --dji_username USERNAME # Your DJI Forum username
-  -d, --debug                 # Some additional output for when emailing kevin@welikeinc.com for assistance
+  -d, --debug                 # Some additional output used when emailing kevin@welikeinc.com for assistance
 ```
 
 #### Example: Track an order
