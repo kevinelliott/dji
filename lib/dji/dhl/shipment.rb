@@ -41,8 +41,10 @@ module DJI
           end
           shipment.destination     = item['destination']['value']
           shipment.origin          = item['origin']['value']
-          shipment.estimated_delivery_date = Date.parse(item['edd']['date'])
-          shipment.estimated_delivery_product = item['edd']['product']
+          if item['edd'].present?
+            shipment.estimated_delivery_date = Date.parse(item['edd']['date'])
+            shipment.estimated_delivery_product = item['edd']['product']
+          end
 
           item['checkpoints'].each do |item|
             checkpoint = Checkpoint.new_from_item(item)
