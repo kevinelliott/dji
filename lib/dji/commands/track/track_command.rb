@@ -27,7 +27,8 @@ module DJI
           debug:         options[:debug],
           dji_username:  options[:dji_username],
           email_address: options[:email_address],
-          debug:         true
+          debug:         options[:debug],
+          output:        true
         }
 
         if options[:repeat].present?

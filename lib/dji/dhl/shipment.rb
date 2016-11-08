@@ -19,6 +19,11 @@ module DJI
         @checkpoints = []
       end
 
+      def delivered_at
+        puts checkpoints.first.inspect
+        checkpoints.first.datetime if delivery_status == 'delivered'
+      end
+
       def destination=(value)
         @destination = value
         self.destination_city, self.destination_region, self.destination_country = value.split(' - ')
