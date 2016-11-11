@@ -68,6 +68,8 @@ module DJI
             puts response
             puts "Nothing parsed!"
           end
+
+          tpr
         else
           puts res.inspect
           res.error!
