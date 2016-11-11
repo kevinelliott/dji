@@ -11,7 +11,7 @@ module DJI
   
     class << self
 
-      def track(tracking_number)
+      def track(tracking_number, options = {})
         uri = URI.parse(tracking_url_json)
 
         params = {
@@ -56,14 +56,13 @@ module DJI
         case res
         when Net::HTTPSuccess, Net::HTTPRedirection
           # OK
-          # puts res.body
           response = JSON.parse(res.body)['TrackPackagesResponse']
           tpr = DJI::Fedex::TrackPackagesResponse.new_from_response(response)
 
           data = { tracking_number: tracking_number }
           if tpr.present?
             data[:track_packages_response] = tpr
-            print_track_packages_response(data)
+            print_track_packages_response(data) if options[:debug]
           else
             puts response
             puts "Nothing parsed!"
