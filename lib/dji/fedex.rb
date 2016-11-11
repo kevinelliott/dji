@@ -11,6 +11,70 @@ module DJI
   
     class << self
 
+      def track(tracking_number)
+        uri = URI.parse(tracking_url_json)
+
+        params = {
+          'action' => 'trackpackages',
+          'locale' => 'en_US',
+          'version' => 1,
+          'format' => 'json'
+        }
+        params['data'] = {
+          'TrackPackagesRequest' => {
+            'appType' => 'WTRK',
+            'appDeviceType' => 'DESKTOP',
+            'uniqueKey' => '',
+            'processingParameters' => {},
+            'trackingInfoList' => [
+              {
+                'trackNumberInfo' => {
+                  'trackingNumber' => tracking_number,
+                  'trackingQualifier' => '',
+                  'trackingCarrier' => ''
+                }
+              }
+            ]
+          }
+        }.to_json
+
+        headers = {
+          'Content-Type' => 'application/x-www-form-urlencoded',
+          'Origin' => 'https://www.fedex.com/',
+          'Referer' => "#{tracking_url}?tracknumbers=#{tracking_number}",
+          'Accept' => '*/*',
+          'X-Requested-With' => 'XMLHttpRequest'
+        }
+
+        http = Net::HTTP.new uri.host, uri.port
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        request = Net::HTTP::Post.new uri.path, headers
+        request.set_form_data params
+        res = http.request(request)
+
+        case res
+        when Net::HTTPSuccess, Net::HTTPRedirection
+          # OK
+          # puts res.body
+          response = JSON.parse(res.body)['TrackPackagesResponse']
+          tpr = DJI::Fedex::TrackPackagesResponse.new_from_response(response)
+
+          data = { tracking_number: tracking_number }
+          if tpr.present?
+            data[:track_packages_response] = tpr
+            print_track_packages_response(data)
+          else
+            puts response
+            puts "Nothing parsed!"
+          end
+        else
+          puts res.inspect
+          res.error!
+        end
+
+      end
+
       # Get the tracking details for an order
       def tracking_details(country, postal_code)
         uri = URI.parse(tracking_url)
@@ -121,17 +185,7 @@ module DJI
             puts response
             puts "Nothing parsed!"
           end
-          # page = Nokogiri::HTML(res.body)
-          # content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
-          # # puts content
-          # data = {}
-          # data[:order_number] = content.at_xpath('div[1]').text.split(' ')[-1]
-          # data[:total]        = content.at_xpath('div[2]').text.split(' ')[1..-1].join(' ')
-          # data[:payment_status] = content.at_xpath('div[3]').text.split(': ')[1]
-          # data[:shipping_status] = content.at_xpath('div[4]').text.split(': ')[1]
-          # data[:shipping_company] = content.at_xpath('div[5]/span').text
-          # data[:tracking_number] = content.at_xpath('div[6]/a').text
-          
+
           # print_tracking_details(data)
         else
           puts res.inspect
