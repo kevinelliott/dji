@@ -69,6 +69,7 @@ module DJI
           page = Nokogiri::HTML(response.body)
 
           content = page.at_xpath('//div[@id="custom-info"]/div[@class="order-tracking"]')
+          puts content.to_html if options[:debug]
 
           if content.text.blank? || content.text.include?('Sorry, record not found.')
             puts "Order #{options[:order_number]}/#{options[:phone_tail]} not found!" if options[:output]
@@ -78,10 +79,10 @@ module DJI
             data[:total]            = content.at_xpath('p[2]').text.split(' ')[1..-1].join(' ')
             data[:payment_status]   = content.at_xpath('p[3]').text.split(': ')[1]
             data[:shipping_status]  = content.at_xpath('p[4]').text.split(': ')[1]
-            data[:shipping_company] = if content.at_xpath('p[5]/span').present?
-              content.at_xpath('p[5]/span').text
+            data[:shipping_company] = if content.at_xpath('p[5]').present?
+              content.at_xpath('p[5]').text.split(': ')[1].downcase
             else
-              'Tba'
+              'tba'
             end
             data[:tracking_number]  = if content.at_xpath('p[6]/a').present?
               content.at_xpath('p[6]/a').text
