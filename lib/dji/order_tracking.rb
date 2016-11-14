@@ -9,11 +9,16 @@ module DJI
 
     class << self
 
+      # The URL for order tracking
+      def tracking_url
+        'http://m.dji.com/orders/tracking'
+      end
+
       # Retrieve an authenticity_token
       def authenticity_token(url, options = {})
         uri      = URI(url)
         http     = Net::HTTP.new uri.host, uri.port
-        request  = Net::HTTP::Get.new uri.path
+        request  = Net::HTTP::Get.new "#{uri.path}?www=v1"
         response = http.request request
         
         if options[:debug].present?
@@ -36,13 +41,13 @@ module DJI
         auth_token = authenticity_token(tracking_url, options)
 
         url = URI.parse(tracking_url)
-        params = { 'number' => options[:order_number], 'phone_tail' => options[:phone_tail], 'utf8' => '✓' }
+        params = { 'www' => 'v1', 'number' => options[:order_number], 'phone_tail' => options[:phone_tail] }
         params[auth_token[:param]] = auth_token[:token]
 
         headers = {
           'Content-Type' => 'application/x-www-form-urlencoded',
           'Cookie' => auth_token[:cookie],
-          'Origin' => 'http://store.dji.com',
+          'Origin' => 'http://m.dji.com',
           'Referer' => tracking_url
         }
 
@@ -62,23 +67,24 @@ module DJI
         when Net::HTTPSuccess, Net::HTTPRedirection
           # OK
           page = Nokogiri::HTML(response.body)
-          content = page.at_xpath('//div[@id="main"]/div[@class="container"]/div[@class="row"]/div[@class="col-xs-9"]/div[@class="col-xs-10 well"][2]')
- 
+
+          content = page.at_xpath('//div[@id="custom-info"]/div[@class="order-tracking"]')
+
           if content.text.blank? || content.text.include?('Sorry, record not found.')
             puts "Order #{options[:order_number]}/#{options[:phone_tail]} not found!" if options[:output]
           else
             data                    = {}
-            data[:order_number]     = content.at_xpath('div[1]').text.split(' ')[-1]
-            data[:total]            = content.at_xpath('div[2]').text.split(' ')[1..-1].join(' ')
-            data[:payment_status]   = content.at_xpath('div[3]').text.split(': ')[1]
-            data[:shipping_status]  = content.at_xpath('div[4]').text.split(': ')[1]
-            data[:shipping_company] = if content.at_xpath('div[5]/span').present?
-              content.at_xpath('div[5]/span').text
+            data[:order_number]     = content.at_xpath('p[1]').text.split(' ')[-1]
+            data[:total]            = content.at_xpath('p[2]').text.split(' ')[1..-1].join(' ')
+            data[:payment_status]   = content.at_xpath('p[3]').text.split(': ')[1]
+            data[:shipping_status]  = content.at_xpath('p[4]').text.split(': ')[1]
+            data[:shipping_company] = if content.at_xpath('p[5]/span').present?
+              content.at_xpath('p[5]/span').text
             else
               'Tba'
             end
-            data[:tracking_number]  = if content.at_xpath('div[6]/a').present?
-              content.at_xpath('div[6]/a').text
+            data[:tracking_number]  = if content.at_xpath('p[6]/a').present?
+              content.at_xpath('p[6]/a').text
             else
               nil
             end
@@ -100,11 +106,6 @@ module DJI
         end
         
         data
-      end
-
-      # The URL for order tracking
-      def tracking_url
-        'http://store.dji.com/orders/tracking'
       end
 
       def print_tracking_details(data)
