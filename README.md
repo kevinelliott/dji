@@ -1,3 +1,5 @@
+To support my open-source work, consider [adding me on Patreon](https://www.patreon.com/kevinelliott).
+
 # DJI
 
 CLI and Ruby tools for drone-maker DJI's store, account, order status and more.
